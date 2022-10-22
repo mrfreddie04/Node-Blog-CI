@@ -1,0 +1,13 @@
+node_modules
+nohup.out
+.DS_Store
+
+.env
+.env.production
+.env.test
+
+client-old
+
+config/dev.js
+
+
