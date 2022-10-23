@@ -5,17 +5,24 @@ import { fetchBlog } from '../../actions';
 
 const BlogShow = ({ blogs, fetchBlog }) => {
   const { _id } = useParams();
-  const { title, content } = blogs[_id];
+  const { title, content, imageUrl } = blogs[_id];
   
   useEffect(() => {
     fetchBlog(_id);
-  }, [fetchBlog, _id])
+  }, [fetchBlog, _id]);
+
+  const renderImage = () => {
+    if(imageUrl) {
+      return <img src={`https://mct-node-blog-bucket.s3.amazonaws.com/${imageUrl}`} />
+    }
+  }
   
   return (
     blogs[_id] &&
       <div>
         <h3>{title}</h3>
         <p>{content}</p>
+        {renderImage()}
       </div>
   );
 }

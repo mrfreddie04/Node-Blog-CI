@@ -7,6 +7,8 @@ import { withRouter } from '../../utils/withRouter.js';
 import * as actions from '../../actions';
 
 class BlogFormReview extends Component {
+  state = { file: null };
+
   renderFields() {
     const { formValues } = this.props;
 
@@ -44,7 +46,12 @@ class BlogFormReview extends Component {
 
     const { submitBlog, router, formValues } = this.props;
 
-    submitBlog(formValues, router.navigate);
+    submitBlog(formValues, this.state.file, router.navigate);
+  }
+
+  onFileChange(event) {
+    console.log(event.target.files[0]);
+    this.setState({file: event.target.files[0]});
   }
 
   render() {
@@ -52,7 +59,12 @@ class BlogFormReview extends Component {
       <form onSubmit={this.onSubmit.bind(this)}>
         <h5>Please confirm your entries</h5>
         {this.renderFields()}
-
+        <h5>Add an Image</h5>
+        <input 
+          onChange={this.onFileChange.bind(this)}
+          type="file" 
+          accept="image/*" 
+        />
         {this.renderButtons()}
       </form>
     );
